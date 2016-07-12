@@ -7,14 +7,17 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ywd.blog.entity.Blog;
+import com.ywd.blog.entity.BlogIndex;
 import com.ywd.blog.entity.PageBean;
-import com.ywd.blog.lucene.BlogIndex;
+import com.ywd.blog.lucene.BlogIndexService;
 import com.ywd.blog.service.BlogService;
+import com.ywd.blog.service.IndexService;
 import com.ywd.blog.util.DateJsonValueProcessor;
 import com.ywd.blog.util.ResponseUtil;
 import com.ywd.blog.util.StringUtil;
@@ -31,7 +34,10 @@ public class BlogAdminController {
 	@Resource
 	private BlogService blogService;
 	
-	private BlogIndex blogIndex = new BlogIndex();
+	@Autowired
+	private IndexService indexService;
+	
+	private BlogIndexService blogIndex = new BlogIndexService();
 	
 	/**
 	 * 添加或者修改博客信息
@@ -46,9 +52,13 @@ public class BlogAdminController {
 		if(blog.getId()==null){
 			resultTotal=blogService.add(blog);
 			blogIndex.addIndex(blog);
+			BlogIndex blogIndex = new BlogIndex(blog.getId(), blog.getTitle(), blog.getNoTagContent());
+			indexService.add(blogIndex);
 		}else{
 			resultTotal = blogService.update(blog);
 			blogIndex.updateIndex(blog);
+			BlogIndex blogIndex = new BlogIndex(blog.getId(), blog.getTitle(), blog.getNoTagContent());
+			indexService.update(blogIndex);
 		}
 		JSONObject result=new JSONObject();
 		if(resultTotal>0){
@@ -101,6 +111,7 @@ public class BlogAdminController {
 		for (int i = 0; i < idStr.length; i++) {
 			blogService.deleteBlog(Integer.parseInt(idStr[i]));
 			blogIndex.delete(idStr[i]);
+			indexService.delete(Integer.parseInt(idStr[i]));
 		}
 		JSONObject result=new JSONObject();
 		result.put("success", true);

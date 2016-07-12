@@ -43,7 +43,7 @@ import com.ywd.blog.util.StringUtil;
  * @author ywd
  *
  */
-public class BlogIndex {
+public class BlogIndexService {
 	
 	private Directory dir;
 	

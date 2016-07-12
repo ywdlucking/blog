@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ywd.blog.entity.Blog;
 import com.ywd.blog.entity.Comment;
-import com.ywd.blog.lucene.BlogIndex;
+import com.ywd.blog.lucene.BlogIndexService;
 import com.ywd.blog.service.BlogService;
 import com.ywd.blog.service.CommentService;
 import com.ywd.blog.util.Constant;
@@ -32,7 +32,7 @@ public class BlogController {
 	@Resource
 	private CommentService commentService;
 	
-	private BlogIndex blogIndex=new BlogIndex();
+	private BlogIndexService blogIndex=new BlogIndexService();
 	
 	/**
 	 * 请求主页
