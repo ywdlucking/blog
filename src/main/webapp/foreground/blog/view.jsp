@@ -136,7 +136,7 @@
 	</div>
 </div>
 
-<div class="data_list" >
+<!-- <div class="data_list" >
 	<div class="data_list_title">
 		<img src="/static/images/publish_comment_icon.png"/>
 		发表评论
@@ -166,4 +166,4 @@
 			</div>
 		</form>
 	</div>
-</div>
+</div> -->

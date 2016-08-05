@@ -8,9 +8,12 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,14 +37,17 @@ public class BlogController {
 	
 	private BlogIndexService blogIndex=new BlogIndexService();
 	
+	private static Log log = LogFactory.getLog(BlogController.class);
+	
 	/**
 	 * 请求主页
 	 * @param page
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/articles/{id}")
+	@RequestMapping(value="/articles/{id}",method=RequestMethod.GET)
 	public ModelAndView index(@PathVariable("id") Integer id, HttpServletRequest request) throws Exception{
+		log.info("请求页面："+id);
 		ModelAndView modelAndView = new ModelAndView();
 		Blog blog = blogService.findById(id);
 		String keyWords=blog.getKeyWord();
