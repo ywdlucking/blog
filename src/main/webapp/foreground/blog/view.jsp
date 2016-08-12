@@ -92,7 +92,7 @@
 	</div>
 </div>
 
-<div class="data_list">
+<!--  <div class="data_list">
 	<div class="data_list_title">
 		<img src="/static/images/comment_icon.png"/>
 		评论信息
@@ -134,7 +134,7 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-</div>
+</div>  -->
 
 <!-- <div class="data_list" >
 	<div class="data_list_title">
