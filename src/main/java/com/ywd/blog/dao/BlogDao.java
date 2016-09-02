@@ -8,6 +8,13 @@ import com.ywd.blog.entity.Blog;
 public interface BlogDao {
 	
 	/**
+	 * 查询推荐博客
+	 * @param map
+	 * @return
+	 */
+	public List<Blog> listRecommend(Map<String, Object> map);
+	
+	/**
 	 * 根据日期分月分组查询
 	 * @return
 	 */

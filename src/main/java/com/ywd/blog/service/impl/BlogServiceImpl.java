@@ -53,5 +53,10 @@ public class BlogServiceImpl implements BlogService {
 		return blogDao.deleteBlog(id);
 	}
 
+	@Override
+	public List<Blog> listRecommend(Map<String, Object> map) {
+		return blogDao.listRecommend(map);
+	}
+
 	
 }

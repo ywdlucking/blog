@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="replyHit" column="replyHit"/>
 		<result property="content" column="content"/>
 		<result property="keyWord" column="keyWord"/>
-		
+		<result property="picture" column="picture"/>
 		<association property="blogType" column="typeId" select="com.ywd.blog.dao.BlogTypeDao.findById"></association>
 	</resultMap>
 	
@@ -35,6 +35,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</where>
 		order by releaseDate desc
+		<if test="start!=null and size!=null">
+			limit #{start},#{size}
+		</if>
+	</select>
+	
+	<select id="listRecommend" parameterType="Map" resultMap="BlogResult">
+		select * from t_blog 
+		order by clickHit desc
 		<if test="start!=null and size!=null">
 			limit #{start},#{size}
 		</if>

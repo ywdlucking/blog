@@ -10,6 +10,13 @@ public interface BlogService {
 	public List<Blog> countList();
 	
 	/**
+	 * 查询推荐博客
+	 * @param map
+	 * @return
+	 */
+	public List<Blog> listRecommend(Map<String, Object> map);
+	
+	/**
 	 * 分页查询博客
 	 * @param map
 	 * @return

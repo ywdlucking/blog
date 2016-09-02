@@ -1,5 +1,6 @@
 package com.ywd.blog.util;
 
+import java.util.List;
 
 public class PageUtil {
 	/**
@@ -40,6 +41,30 @@ public class PageUtil {
 			pageCode.append("<li><a href='"+targetUrl+"?page="+totalPage+"&"+param+"'>尾页</a></li>");
 			return pageCode.toString();
 		}
+	}
+	
+	public static String getTiemPage(String targetUrl, List<Integer> group, Integer year) {
+		StringBuffer pageCode=new StringBuffer();
+		if(year != null){			
+			for (Integer syear : group) {
+				if(syear.equals(year)){
+					pageCode.append("<a class='active' href='"+targetUrl+"?syear="+syear+"'>"+syear+"</a>");								
+				}else{
+					pageCode.append("<a href='"+targetUrl+"?syear="+syear+"'>"+syear+"</a>");
+				}
+			}
+		}else{
+			boolean flag = true;
+			for (Integer syear : group) {
+				if(flag){
+					pageCode.append("<a class='active' href='"+targetUrl+"?syear="+syear+"'>"+syear+"</a>");
+					flag = false;
+				}else{
+					pageCode.append("<a href='"+targetUrl+"?syear="+syear+"'>"+syear+"</a>");
+				}
+			}
+		}
+		return pageCode.toString();
 	}
 	
 }

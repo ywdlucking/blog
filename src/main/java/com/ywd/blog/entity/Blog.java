@@ -18,6 +18,7 @@ public class Blog {
 	private BlogType blogType;
 	
 	private String keyWord; 
+	private String picture;
 	private Integer blogCount; 
 	private String releaseDateStr;
 	
@@ -100,6 +101,12 @@ public class Blog {
 	}
 	public void setNoTagContent(String noTagContent) {
 		this.noTagContent = noTagContent;
+	}
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 	
 }
