@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ywd.blog.dao.TimeLunDao">
+
+	<resultMap type="TimeLun" id="TimeLunResult">
+		<result property="id" column="id"/>
+		<result property="context" column="context"/>
+		<result property="saydate" column="saydate"/>
+		<result property="picture" column="picture"/>
+		<result property="syear" column="syear"/>
+	</resultMap>
+	
+	<select id="list" parameterType="Map" resultMap="TimeLunResult">
+		select * from t_time where
+		<if test="syear != null">
+			syear=#{syear}
+		</if>
+		<if test="syear == null">
+			syear = (SELECT syear FROM t_time GROUP BY syear ORDER BY syear DESC LIMIT 0 ,1)
+		</if>
+		order by saydate desc
+	</select>
+	
+	<select id="group"  resultType="Integer">
+		SELECT syear FROM t_time GROUP BY syear ORDER BY syear DESC
+	</select>
+	
+	<insert id="add" parameterType="TimeLun">
+		insert into t_time values(null,#{context},#{saydate},#{picture},#{syear})
+	</insert>
+	
+	<update id="update" parameterType="TimeLun">
+		update t_TimeLun
+		<set>
+			<if test="context!=null and context!=''">
+				client=#{client},
+			</if>
+			<if test="picture!=null and picture!=''">
+				desc=#{desc},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		delete from t_time where id=#{id}
+	</delete>
+</mapper> 

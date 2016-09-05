@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ywd.blog.dao.ScollDao">
+
+	<resultMap type="Scoll" id="ScollResult">
+		<result property="id" column="id"/>
+		<result property="titleId" column="titleId"/>
+		<result property="client" column="client"/>
+		<result property="desc" column="desc"/>
+		<result property="releaseDate" column="releaseDate"/>
+		<result property="content" column="content"/>
+		<result property="picture" column="picture"/>
+	</resultMap>
+	
+	<select id="list" parameterType="Integer" resultMap="ScollResult">
+		select * from t_scoll where titleId &lt;=#{count}
+	</select>
+	
+	<select id="findById" parameterType="Integer" resultMap="ScollResult">
+		select * from t_scoll where titleId=#{id}
+	</select>
+	
+	<insert id="add" parameterType="Scoll">
+		insert into t_scoll values(null,#{titleId},#{client},#{desc},#{releaseDate},#{content},#{picture})
+	</insert>
+	
+	<update id="update" parameterType="Scoll">
+		update t_scoll
+		<set>
+			<if test="titleId!=null">
+				titleId=#{titleId},
+			</if>
+			<if test="client!=null and client!=''">
+				client=#{client},
+			</if>
+			<if test="desc!=null and desc!=''">
+				desc=#{desc},
+			</if>
+			<if test="content!=null and content!=''">
+				content=#{content},
+			</if>
+			<if test="picture!=null and picture!=''">
+				picture=#{picture},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		delete from t_scoll where id=#{id}
+	</delete>
+</mapper> 
