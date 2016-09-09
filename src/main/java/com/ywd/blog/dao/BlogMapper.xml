@@ -91,6 +91,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="keyWord!=null and keyWord!=''">
 				keyWord=#{keyWord},
 			</if>
+			<if test="picture!=null and picture!=''">
+				picture=#{picture},
+			</if>
 		</set>
 		where id=#{id}
 	</update>
@@ -104,7 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="add" parameterType="Blog" useGeneratedKeys="true" keyProperty="id">
-		insert into t_blog values(null,#{title},#{summary},now(),0,0,#{content},#{blogType.id},#{keyWord})
+		insert into t_blog values(null,#{title},#{summary},now(),0,0,#{content},#{blogType.id},#{keyWord},#{picture})
 	</insert>
 	
 	<delete id="deleteBlog" parameterType="Integer">

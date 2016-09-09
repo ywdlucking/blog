@@ -23,8 +23,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by saydate desc
 	</select>
 	
+	<select id="listAllTimes" parameterType="Map" resultMap="TimeLunResult">
+		select * from t_time order by saydate desc
+		<if test="start != null and size != null">
+			limit #{start},#{size}
+		</if>
+	</select>
+	
 	<select id="group"  resultType="Integer">
 		SELECT syear FROM t_time GROUP BY syear ORDER BY syear DESC
+	</select>
+	
+	<select id="getTotal" parameterType="Map" resultType="Long">
+		select count(*) from t_time
+	</select>
+	
+	<select id="findById" parameterType="Integer" resultMap="TimeLunResult">
+		select * from t_time where id=#{id}
 	</select>
 	
 	<insert id="add" parameterType="TimeLun">
@@ -32,13 +47,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<update id="update" parameterType="TimeLun">
-		update t_TimeLun
+		update t_time
 		<set>
 			<if test="context!=null and context!=''">
-				client=#{client},
+				context=#{context},
 			</if>
 			<if test="picture!=null and picture!=''">
-				desc=#{desc},
+				picture=#{picture},
 			</if>
 		</set>
 		where id=#{id}

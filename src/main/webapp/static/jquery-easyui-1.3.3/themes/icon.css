@@ -76,6 +76,21 @@
 .icon-writeblog{
 	background:url('usericons/writeblog.png') no-repeat center center;
 }
+.icon-write-scoll{
+	background:url('usericons/write-scoll.png') no-repeat center center;
+}
+
+.icon-scoll{
+	background:url('usericons/scoll.png') no-repeat center center;
+}
+
+.icon-write-time{
+	background:url('usericons/write-time.png') no-repeat center center;
+}
+
+.icon-time{
+	background:url('usericons/time.png') no-repeat center center;
+}
 
 .icon-bkgl{
 	background:url('usericons/bkgl.png') no-repeat center center;

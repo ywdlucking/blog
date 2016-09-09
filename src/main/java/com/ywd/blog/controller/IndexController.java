@@ -57,7 +57,9 @@ public class IndexController {
 		map.put("start", 0);
 		map.put("size", 7);
 		List<Blog> listBlog = blogService.list(map);
-		List<Scoll> scolls = scollService.list(4);
+		Map<String, Object> mapScoll = new HashMap<String, Object>();
+		mapScoll.put("count", 4);
+		List<Scoll> scolls = scollService.list(mapScoll);
 		for (Scoll scoll : scolls) {
 			ScollVO vo = new ScollVO("slide-img-"+scoll.getTitleId(), scoll.getClient(), scoll.getDesc());
 			scollVO.add(vo);

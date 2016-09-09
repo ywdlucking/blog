@@ -9,6 +9,12 @@ public interface TimeLunDao {
 	
 	public List<TimeLun> list(Map<String, Object> map);
 	
+	public List<TimeLun> listAllTimes(Map<String, Object> map);
+	
+	public Long getTotal(Map<String, Object> map);
+	
+	public TimeLun findById(Integer id);
+	
 	public List<Integer> group();
 	
 	public Integer update(TimeLun TimeLun);

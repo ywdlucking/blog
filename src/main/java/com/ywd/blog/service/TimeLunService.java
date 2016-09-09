@@ -8,6 +8,8 @@ import com.ywd.blog.entity.TimeLun;
 public interface TimeLunService {
 	public List<TimeLun> list(Map<String, Object> map);
 	
+	public List<TimeLun> listAll(Map<String, Object> map);
+	
 	public Integer update(TimeLun TimeLun);
 	
 	public int add(TimeLun TimeLun);
@@ -15,4 +17,8 @@ public interface TimeLunService {
 	public Integer delete(Integer id);
 	
 	public List<Integer> group();
+	
+	public Long getTotal(Map<String, Object> map);
+	
+	public TimeLun findById(Integer id);
 }

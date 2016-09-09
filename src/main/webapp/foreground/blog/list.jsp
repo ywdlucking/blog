@@ -13,7 +13,7 @@
 	    <div class="datas">
 	        <c:forEach var="blog" items="${listBlog }">
 				<div class="blogs">
-					<figure><img src="${pageContext.request.contextPath}/static/images/${blog.picture }"></figure>
+					<figure><img src="${pageContext.request.contextPath}/static/picture/${blog.picture }"></figure>
 					<ul>
 						<h3><a href="${pageContext.request.contextPath}/blog/articles/${blog.id }.html">${blog.title }</a></h3>
 						<p>摘要: ${blog.summary }...</p>

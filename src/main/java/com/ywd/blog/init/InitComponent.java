@@ -33,7 +33,7 @@ public class InitComponent implements ServletContextListener, ApplicationContext
 
 	public void contextInitialized(ServletContextEvent event) {
 		try {
-			InitConfig.init();
+			new InitConfig().init();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

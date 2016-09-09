@@ -1,16 +1,19 @@
 package com.ywd.blog.controller.admin;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ywd.blog.entity.Blog;
 import com.ywd.blog.entity.BlogIndex;
@@ -19,6 +22,7 @@ import com.ywd.blog.lucene.BlogIndexService;
 import com.ywd.blog.service.BlogService;
 import com.ywd.blog.service.IndexService;
 import com.ywd.blog.util.DateJsonValueProcessor;
+import com.ywd.blog.util.DateUtil;
 import com.ywd.blog.util.ResponseUtil;
 import com.ywd.blog.util.StringUtil;
 
@@ -49,6 +53,12 @@ public class BlogAdminController {
 	@RequestMapping("/save")
 	public String save(Blog blog,HttpServletResponse response) throws Exception{
 		int resultTotal = 0; 
+		if(!blog.getPicture().equals("")){
+			String[] split = blog.getPicture().split("\\\\");
+			if(split.length>1){
+				blog.setPicture(split[split.length-1]);				
+			}
+		}
 		if(blog.getId()==null){
 			resultTotal=blogService.add(blog);
 			blogIndex.addIndex(blog);
@@ -67,6 +77,16 @@ public class BlogAdminController {
 			result.put("success", false);
 		}
 		ResponseUtil.write(response, result);
+		return null;
+	}
+	
+	@RequestMapping("/savepic")
+	public String savepic(@RequestParam("picture")MultipartFile picture, HttpServletRequest request) throws Exception{
+		if(!picture.isEmpty()){
+			String filePath=request.getServletContext().getRealPath("/");
+			String imageName=picture.getOriginalFilename();
+			picture.transferTo(new File(filePath+"static/picture/"+imageName));
+		}
 		return null;
 	}
 	

@@ -14,8 +14,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="picture" column="picture"/>
 	</resultMap>
 	
-	<select id="list" parameterType="Integer" resultMap="ScollResult">
-		select * from t_scoll where titleId &lt;=#{count}
+	<select id="list" parameterType="Map" resultMap="ScollResult">
+		select * from t_scoll 
+		<if test="count!=null">
+			where titleId &lt;=#{count}
+		</if>
+		order by titleId
+		<if test="start!=null and size!=null">
+			limit #{start},#{size}
+		</if>
+	</select>
+	
+	<select id="getTotal" parameterType="Map" resultType="Long">
+		select count(*) from t_scoll
 	</select>
 	
 	<select id="findById" parameterType="Integer" resultMap="ScollResult">
@@ -23,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="add" parameterType="Scoll">
-		insert into t_scoll values(null,#{titleId},#{client},#{desc},#{releaseDate},#{content},#{picture})
+		insert into t_scoll values(null,#{titleId},#{client},#{desc},now() ,#{content},#{picture})
 	</insert>
 	
 	<update id="update" parameterType="Scoll">
@@ -33,10 +44,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				titleId=#{titleId},
 			</if>
 			<if test="client!=null and client!=''">
-				client=#{client},
+				`client`=#{client},
 			</if>
 			<if test="desc!=null and desc!=''">
-				desc=#{desc},
+				`desc`=#{desc},
 			</if>
 			<if test="content!=null and content!=''">
 				content=#{content},

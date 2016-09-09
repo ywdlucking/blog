@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -119,6 +119,10 @@
 		<div title="博客管理"  data-options="iconCls:'icon-bkgl'" style="padding:10px;">
 			<a href="javascript:openTab('写博客','writeBlog.jsp','icon-writeblog')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-writeblog'" style="width: 150px;">写博客</a>
 			<a href="javascript:openTab('博客信息管理','blogManage.jsp','icon-bkgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-bkgl'" style="width: 150px;">博客信息管理</a>
+			<a href="javascript:openTab('写滚屏博客','writeScoll.jsp','icon-write-scoll')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-write-scoll'" style="width: 150px;">写滚屏博客</a>
+			<a href="javascript:openTab('博客信息管理','scollManage.jsp','icon-scoll')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-scoll'" style="width: 150px;">滚屏博客信息管理</a>
+			<a href="javascript:openTab('写时间轴','writeTime.jsp','icon-write-time')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-write-time'" style="width: 150px;">写时间轴</a>
+			<a href="javascript:openTab('时间轴管理','timeManage.jsp','icon-time')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-time'" style="width: 150px;">时间轴管理</a>
 		</div>
 		<div title="博客类别管理" data-options="iconCls:'icon-bklb'" style="padding:10px">
 			<a href="javascript:openTab('博客类别信息管理','blogTypeManage.jsp','icon-bklb')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-bklb'" style="width: 150px;">博客类别信息管理</a>
@@ -172,5 +176,9 @@
 	<a href="javascript:modifyPassword()" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
 	<a href="javascript:closePasswordModifyDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
 </div>
+<script src="${pageContext.request.contextPath}/static/js/qiniu.js"></script> 
+<script src="${pageContext.request.contextPath}/static/js/plupload.full.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/jquery.form.js"></script> 
+
 </body>
 </html>

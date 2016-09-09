@@ -41,4 +41,19 @@ public class TimeLunServiceImpl implements TimeLunService{
 		return timeLunDao.group();
 	}
 
+	@Override
+	public Long getTotal(Map<String, Object> map) {
+		return timeLunDao.getTotal(map);
+	}
+
+	@Override
+	public TimeLun findById(Integer id) {
+		return timeLunDao.findById(id);
+	}
+
+	@Override
+	public List<TimeLun> listAll(Map<String, Object> map) {
+		return timeLunDao.listAllTimes(map);
+	}
+
 }

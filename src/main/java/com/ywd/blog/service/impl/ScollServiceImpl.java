@@ -1,6 +1,7 @@
 package com.ywd.blog.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,8 @@ public class ScollServiceImpl implements ScollService{
 	private ScollDao scollDao;
 
 	@Override
-	public List<Scoll> list(Integer count) {
-		return scollDao.list(count);
+	public List<Scoll> list(Map<String, Object> map) {
+		return scollDao.list(map);
 	}
 
 	@Override
@@ -38,6 +39,11 @@ public class ScollServiceImpl implements ScollService{
 	@Override
 	public Integer delete(Integer id) {
 		return scollDao.delete(id);
+	}
+
+	@Override
+	public Long getTotal(Map<String, Object> map) {
+		return scollDao.getTotal(map);
 	}
 
 	

@@ -40,7 +40,13 @@
 			<tr>
 				<td valign="top">博客内容：</td>
 				<td>
-					<script id="editor" name="content" type="text/plain" style="width:100%;height:500px;"></script>
+					<script id="editor" name="content" type="text/plain" style="width:900px;height:500px;"></script>
+				</td>
+			</tr>
+			<tr>
+				<td>博客配图：</td>
+				<td>
+					<input type="file" id="picture" name="picture"/>
 				</td>
 			</tr>
 			<tr>
@@ -88,6 +94,7 @@
 			var contentNoTag = UE.getEditor('editor').getContentTxt();
 			var keyWord=$("#keyWord").val();
 			var summary=UE.getEditor('editor').getContentTxt().substr(0,155);
+			var picture=$("#picture").val();
 			
 			if(title==null || title==''){
 				alert("请输入标题！");
@@ -104,6 +111,7 @@
 					'noTagContent':contentNoTag,
 					'content':content,
 					'summary':summary,
+					'picture':picture,
 					'keyWord':keyWord},
 					function(result){
 					if(result.success){
@@ -112,6 +120,18 @@
 						alert("博客修改失败！");
 					}
 				},"json");
+				if(picture !== ""){
+					var formData = new FormData();
+					formData.append('picture', $('#picture')[0].files[0]);
+					 $.ajax({
+					      type: "POST",
+					      url: "${pageContext.request.contextPath}/admin/blog/savepic.do",
+					      cache: false,
+					      data: formData,
+					      processData: false,
+					      contentType: false
+					    }).done(function(res) {}).fail(function(res) {});
+				}
 			}
 		}
 	
