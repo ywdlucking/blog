@@ -130,12 +130,18 @@
 		<div title="评论管理"  data-options="iconCls:'icon-plgl'" style="padding:10px">
 			<a href="javascript:openTab('评论审核','commentReview.jsp','icon-review')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-review'" style="width: 150px">评论审核</a>
 			<a href="javascript:openTab('评论信息管理','commentManage.jsp','icon-plgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-plgl'" style="width: 150px;">评论信息管理</a>
+			<a href="javascript:openTab('反馈审核','recommendReview.jsp','icon-recommend-re')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-recommend-re'" style="width: 150px">反馈审核</a>
+			<a href="javascript:openTab('反馈信息管理','recommendManage.jsp','icon-recommend-mg')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-recommend-mg'" style="width: 150px;">反馈信息管理</a>
+			<a href="javascript:openTab('留言审核','wordsReview.jsp','icon-words-re')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-words-re'" style="width: 150px">留言审核</a>
+			<a href="javascript:openTab('留言信息管理','wordsManage.jsp','icon-words-mg')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-words-mg'" style="width: 150px;">留言信息管理</a>
 		</div>
+		<div title="链接管理"  data-options="iconCls:'icon-link-system'" style="padding:10px">
+			<a href="javascript:openTab('链接审核','linkReview.jsp','icon-link-review')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-link-review'" style="width: 150px">链接审核</a>
+			<a href="javascript:openTab('友情链接管理','linkManage.jsp','icon-link')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-link'" style="width: 150px">友情链接管理</a>		</div>
 		<div title="个人信息管理"  data-options="iconCls:'icon-grxx'" style="padding:10px">
 			<a href="javascript:openTab('修改个人信息','modifyInfo.jsp','icon-grxxxg')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-grxxxg'" style="width: 150px;">修改个人信息</a>
 		</div>
-		<div title="系统管理"  data-options="iconCls:'icon-system'" style="padding:10px">
-		    <a href="javascript:openTab('友情链接管理','linkManage.jsp','icon-link')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-link'" style="width: 150px">友情链接管理</a>
+		<div title="系统管理"  data-options="iconCls:'icon-system'" style="padding:10px">		    
 			<a href="javascript:openPasswordModifyDialog()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-modifyPassword'" style="width: 150px;">修改密码</a>
 			<a href="javascript:refreshSystem()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-refresh'" style="width: 150px;">刷新系统缓存</a>
 			<a href="javascript:logout()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-exit'" style="width: 150px;">安全退出</a>
@@ -144,7 +150,7 @@
 </div>
 
 <div region="south" style="height: 25px;padding: 5px" align="center">
-	Copyright © 2016 快乐的鱼 版权所有
+	Copyright © 2016 土豆说 版权所有
 </div>
 
 <div id="dlg" class="easyui-dialog" style="width: 400px;height: 200px;padding: 10px 20px" closed="true" buttons="#dlg-buttons">
@@ -176,9 +182,6 @@
 	<a href="javascript:modifyPassword()" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
 	<a href="javascript:closePasswordModifyDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
 </div>
-<script src="${pageContext.request.contextPath}/static/js/qiniu.js"></script> 
-<script src="${pageContext.request.contextPath}/static/js/plupload.full.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/js/jquery.form.js"></script> 
 
 </body>
 </html>

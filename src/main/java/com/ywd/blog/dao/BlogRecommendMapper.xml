@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ywd.blog.dao.BlogRecommendDao">
+
+	<resultMap type="BlogRecommend" id="BlogRecommendResult">
+		<result property="id" column="id"/>
+		<result property="recommendId" column="recommendId"/>
+		<result property="orderNo" column="orderNo"/>
+	</resultMap>
+	
+	<select id="list" parameterType="Map" resultMap="BlogRecommendResult">
+		select * from t_blogRecommend order by orderNo
+		<if test="start!=null and size!=null">
+			limit #{start},#{size}
+		</if>
+	</select>
+	
+	<select id="getTotal" parameterType="Map" resultType="Long">
+		select count(*) from t_blogRecommend
+	</select>
+	
+	<insert id="add" parameterType="BlogRecommend">
+		insert into t_blogRecommend values(null,#{recommendId},#{orderNo})
+	</insert>
+	
+	<update id="update" parameterType="BlogRecommend">
+		update t_blogRecommend 
+		<set>
+			<if test="recommendId!=null">
+				BlogRecommendName=#{BlogRecommendName},
+			</if>
+			<if test="BlogRecommendName!=null">
+				orderNo=#{orderNo},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		delete from t_blogRecommend where id=#{id}
+	</delete>
+</mapper> 

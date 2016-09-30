@@ -15,6 +15,13 @@ public interface BlogDao {
 	public List<Blog> listRecommend(Map<String, Object> map);
 	
 	/**
+	 * 查询最新博客
+	 * @param map
+	 * @return
+	 */
+	public List<Blog> listNew(Map<String, Object> map);
+	
+	/**
 	 * 根据日期分月分组查询
 	 * @return
 	 */

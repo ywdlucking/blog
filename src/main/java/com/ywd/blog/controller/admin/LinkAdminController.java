@@ -35,11 +35,12 @@ public class LinkAdminController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/list")
-	public String list(@RequestParam(value="page",required=true)String page, @RequestParam(value="rows",required=true)String rows,HttpServletResponse response) throws Exception{
+	public String list(@RequestParam(value="page",required=true)String page, @RequestParam(value="rows",required=true)String rows,@RequestParam(value="state",required=true)String state, HttpServletResponse response) throws Exception{
 		PageBean pageBean=new PageBean(Integer.parseInt(page),Integer.parseInt(rows));
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("start", pageBean.getStart());
 		map.put("size", pageBean.getPageSize());
+		map.put("state", state);
 		List<Link> linkList = linkService.list(map);
 		Long total = linkService.getTotal(map);
 		JSONArray array = JSONArray.fromObject(linkList);
@@ -47,6 +48,19 @@ public class LinkAdminController {
 		result.put("rows", array);
 		result.put("total", total);
 		ResponseUtil.write(response, result);
+		return null;
+	}
+	
+	@RequestMapping("/pass")
+	public String pass(@RequestParam("state") String state, @RequestParam("ids") String ids,
+			HttpServletResponse response) throws Exception{
+		String[] split = ids.split(",");
+		for (String id : split) {
+			Link link = linkService.findById(Integer.valueOf(id));
+			link.setState(Integer.valueOf(state));
+			linkService.update(link);
+		}
+		ResponseUtil.write(response, true);
 		return null;
 	}
 	

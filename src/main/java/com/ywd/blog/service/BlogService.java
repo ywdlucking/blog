@@ -17,6 +17,13 @@ public interface BlogService {
 	public List<Blog> listRecommend(Map<String, Object> map);
 	
 	/**
+	 * 查询最新博客
+	 * @param map
+	 * @return
+	 */
+	public List<Blog> listNew(Map<String, Object> map);
+	
+	/**
 	 * 分页查询博客
 	 * @param map
 	 * @return

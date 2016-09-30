@@ -40,4 +40,9 @@ public class CommentServiceImpl implements CommentService {
 		return commentDao.delete(id);
 	}
 
+	@Override
+	public Comment findById(Integer id) {
+		return commentDao.findById(id);
+	}
+
 }

@@ -46,4 +46,11 @@ public interface CommentDao {
 	 * @return
 	 */
 	public int delete(Integer id);
+	
+	/**
+	 * 通过id找
+	 * @param map
+	 * @return
+	 */
+	public Comment findById(Integer id);
 }

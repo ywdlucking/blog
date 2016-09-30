@@ -41,4 +41,9 @@ public class LinkServiceImpl implements LinkService{
 		return linkDao.getTotal(map);
 	}
 
+	@Override
+	public Link findById(Integer id) {
+		return linkDao.findById(id);
+	}
+
 }

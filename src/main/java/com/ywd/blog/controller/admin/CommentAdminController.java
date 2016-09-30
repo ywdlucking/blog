@@ -16,6 +16,7 @@ import com.ywd.blog.entity.Comment;
 import com.ywd.blog.entity.PageBean;
 import com.ywd.blog.service.BlogService;
 import com.ywd.blog.service.CommentService;
+import com.ywd.blog.service.EmailService;
 import com.ywd.blog.util.DateJsonValueProcessor;
 import com.ywd.blog.util.ResponseUtil;
 
@@ -32,6 +33,9 @@ public class CommentAdminController {
 	
 	@Resource
 	private CommentService commentService;
+	
+	@Resource
+	private EmailService emailService;
 
 	
 	/**
@@ -42,12 +46,13 @@ public class CommentAdminController {
 	 */
 	@RequestMapping("/list")
 	public String list(@RequestParam("page") String page, @RequestParam("rows") String rows,@RequestParam(value="state",required=false) String state,
-			@RequestParam(value="blogId",required=false) String blogId,HttpServletResponse response) throws Exception{
+			@RequestParam(value="blogId",required=false) String blogId,@RequestParam(value="type",required=false) String type,HttpServletResponse response) throws Exception{
 		PageBean pageBean = new PageBean(Integer.parseInt(page),Integer.parseInt(rows));
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("start", pageBean.getStart());
 		map.put("size", pageBean.getPageSize());
 		map.put("state", state);
+		map.put("type", type);
 		if(blogId == ""){
 			map.put("blogId", null);			
 		}else{
@@ -84,6 +89,23 @@ public class CommentAdminController {
 		String[] split = ids.split(",");
 		for (String id : split) {
 			commentService.delete(Integer.parseInt(id));
+		}
+		ResponseUtil.write(response, true);
+		return null;
+	}
+	
+	@RequestMapping("/update")
+	public String update(@RequestParam("id") String id,@RequestParam("wordsBack") String wordsBack, HttpServletResponse response) throws Exception{
+		Comment comment = commentService.findById(Integer.valueOf(id));
+		comment.setReComment(wordsBack);
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("reComment", wordsBack);
+		map.put("reCommentDate", new Date());
+		commentService.update(map);
+		Comment comment2 = commentService.findById(Integer.parseInt(id));
+		if(comment2.getEmail()!=null && !comment2.getEmail().equals("")){
+			emailService.sendEmail(comment2.getEmail(), comment2.getReComment(), "土豆说博客答复邮件");			
 		}
 		ResponseUtil.write(response, true);
 		return null;

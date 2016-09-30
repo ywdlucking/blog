@@ -1,6 +1,8 @@
 package com.ywd.blog.controller.admin;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -19,6 +21,7 @@ import com.ywd.blog.service.BlogService;
 import com.ywd.blog.service.BlogTypeService;
 import com.ywd.blog.service.BloggerService;
 import com.ywd.blog.service.LinkService;
+import com.ywd.blog.util.Constant;
 import com.ywd.blog.util.ResponseUtil;
 
 @Controller
@@ -44,7 +47,9 @@ public class SystemAdminController {
 		blogger.setPassword(null);
 		servletContext.setAttribute("blogger", blogger);
 		
-		List<Link> linkList=linkService.list(null); // 查询所有的友情链接信息
+		Map<String, Object> map = new HashMap<>();
+		map.put("state", Constant.LINK_TRUE);
+		List<Link> linkList=linkService.list(map); // 查询所有的友情链接信息
 		servletContext.setAttribute("links", linkList);
 		
 		List<BlogType> blogTypeCountList=blogTypeService.countList(); // 查询博客类别以及博客的数量

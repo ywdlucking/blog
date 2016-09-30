@@ -18,7 +18,7 @@ a:hover { text-decoration: none; }
 header { width: 1000px; margin: 20px auto; overflow: hidden; clear: both; }
 #topnav { width: 60%; background: #48AE15; height: 46px; line-height: 46px; text-align: center; border-radius: 46px; }
 #topnav a { display: inline-block; font-size: 18px; font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif; padding: 0 20px; }
-#topnav a:hover { background: #fff; color: #000; }
+#topnav a:hover { background: #E6E8EB; color: #000; }
 #topnav a { color: #FFF }
 #topnav_current { background: #F3FF41; }/* 高亮选中颜色 */
 a#topnav_current { color: #000 }
@@ -145,3 +145,46 @@ _margin-bottom: 15px; }/*解决IE6下不兼容 position:fixed 的问题*/
 .page a:hover { background: #5599FF; color: #FFF; }
 .page a { border: #999 1px solid; }
 .page .active{background: #5599FF; color: #FFF;}
+/*反馈*/
+.modal-body-p {margin: 0px 10px;}
+.modal-body-p textarea {
+	resize: none;
+    height: 106px;
+    width: 100%;
+    padding: 9px 10px;
+    margin: 6px 1px 1px 0;
+    border: solid 1px #e8e8e8;
+    border-radius: 4px;
+    line-height: 16px;
+    color: #333;
+    font-size: 12px;
+    outline: 0;
+}
+.modal-body-p input {
+	height: 36px;
+    margin-bottom: 20px;
+    resize: none;
+    width: 100%;
+    padding: 9px 10px;
+    margin: 6px 1px 1px 0;
+    border: solid 1px #e8e8e8;
+    line-height: 16px;
+    color: #333;
+    font-size: 12px;
+    outline: 0;
+    background: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    vertical-align: middle;
+    }
+ /*留言模块*/
+.lem {position: relative; border-bottom: #CCC 1px solid; overflow: hidden;margin-top: 10px;}
+.leave-message figure { float: left; width: 20%; overflow: hidden;  }
+.leave-message figure img { width: 45px; height:45px; margin: auto; -moz-transition: all 0.5s; -webkit-transition: all 0.5s; -o-transition: all 0.5s; transition: all 0.5s; }
+.leave-message figure:hover img { -moz-transform: scale(1.1); -webkit-transform: scale(1.1); -o-transform: scale(1.1); -ms-transform: scale(1.1); }
+.leave-message ul { float: right; line-height: 22px; width: 80%; color: #756F71;}
+.autor1 { overflow: hidden; clear: both; margin: 0 0; display: inline-block; color: #838383; width: 100%;  }
+.autor1 span { margin: 0 10px 0 0; padding-left: 20px }
+.autor1 span a { color: #759b08; }
+.autor1 span a:hover { text-decoration: underline }
+.mg {margin-left: 40px;}

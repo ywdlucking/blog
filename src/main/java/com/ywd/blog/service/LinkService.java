@@ -16,4 +16,6 @@ public interface LinkService {
 	public int update(Link link);
 	
 	public int delete(Integer id);
+	
+	public Link findById(Integer id);
 }

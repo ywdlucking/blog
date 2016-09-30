@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,10 +20,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.ywd.blog.entity.Blog;
+import com.ywd.blog.entity.BlogRecommend;
+import com.ywd.blog.entity.Comment;
 import com.ywd.blog.entity.PageBean;
 import com.ywd.blog.entity.Scoll;
 import com.ywd.blog.entity.TimeLun;
+import com.ywd.blog.service.BlogRecommendService;
 import com.ywd.blog.service.BlogService;
+import com.ywd.blog.service.CommentService;
 import com.ywd.blog.service.ScollService;
 import com.ywd.blog.service.TimeLunService;
 import com.ywd.blog.util.Constant;
@@ -43,6 +48,12 @@ public class IndexController {
 	@Autowired
 	private TimeLunService timeLunService;
 	
+	@Autowired
+	private BlogRecommendService blogRecommendService;
+	
+	@Autowired
+	private CommentService commentService;
+	
 	/**
 	 * 请求主页
 	 * @param page
@@ -50,13 +61,25 @@ public class IndexController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/index")
-	public ModelAndView index(){
+	public ModelAndView index(HttpServletRequest request){
+		HttpSession session = request.getSession();
 		ModelAndView modelAndView = new ModelAndView();
 		List<ScollVO> scollVO = new ArrayList<ScollVO>();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("start", 0);
-		map.put("size", 7);
-		List<Blog> listBlog = blogService.list(map);
+		map.put("size", 6);
+		Long total = blogRecommendService.getTotal(map);
+		List<Blog> listBlogTop = blogService.listRecommend(map);
+		List<Blog> listBlogNew = blogService.listNew(map);
+		List<Blog> listBlogRecommend = new ArrayList<>();
+		if(total<6){
+			listBlogRecommend = listBlogTop;
+		}else{
+			List<BlogRecommend> list = blogRecommendService.list(map);
+			for (BlogRecommend blogRecommend : list) {
+				listBlogRecommend.add(blogService.findById(blogRecommend.getRecommendId()));
+			}
+		}
 		Map<String, Object> mapScoll = new HashMap<String, Object>();
 		mapScoll.put("count", 4);
 		List<Scoll> scolls = scollService.list(mapScoll);
@@ -64,7 +87,12 @@ public class IndexController {
 			ScollVO vo = new ScollVO("slide-img-"+scoll.getTitleId(), scoll.getClient(), scoll.getDesc());
 			scollVO.add(vo);
 		}
-		modelAndView.addObject("listBlog", listBlog);
+		session.setAttribute("listBlogRecommend", listBlogRecommend);
+		session.setAttribute("listBlogNew", listBlogNew);
+		session.setAttribute("listBlogTop", listBlogTop);
+//		modelAndView.addObject("listBlogRecommend", listBlogRecommend);
+//		modelAndView.addObject("listBlogNew", listBlogNew);
+//		modelAndView.addObject("listBlogTop", listBlogTop);
 		modelAndView.addObject("scolls", scolls);
 		modelAndView.addObject("scollVO", new Gson().toJson(scollVO));
 		modelAndView.addObject("pageTitle", "博客系统");
@@ -139,8 +167,8 @@ public class IndexController {
 		String tiemPage = PageUtil.getTiemPage(request.getContextPath(), group, syear==null?null:Integer.valueOf(syear));
 		modelAndView.addObject("listTime", list);
 		modelAndView.addObject("pageCode", tiemPage);
-		modelAndView.addObject("pageTitle", "博客系统");
-		modelAndView.addObject("mainPage", "foreground/blog/time.jsp");
+		modelAndView.addObject("pageTitle", "时间轴");
+		modelAndView.addObject("mainPage", "foreground/system/time.jsp");
 		modelAndView.setViewName("mainTemp");
 		return modelAndView;
 	}
@@ -148,8 +176,32 @@ public class IndexController {
 	@RequestMapping("/map")
 	public ModelAndView map( HttpServletRequest request){
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("pageTitle", "博客系统");
-		modelAndView.addObject("mainPage", "foreground/blog/map.jsp");
+		modelAndView.addObject("pageTitle", "我的地图");
+		modelAndView.addObject("mainPage", "foreground/system/map.jsp");
+		modelAndView.setViewName("mainTemp");
+		return modelAndView;
+	}
+	
+	@RequestMapping("/message")
+	public ModelAndView message(@RequestParam(value="page", required=false)String page, HttpServletRequest request){
+		if(StringUtil.isEmpty(page)){
+			page = "1";
+		}
+		int currentPage = Integer.parseInt(page);
+		PageBean pageBean = new PageBean(currentPage, Constant.PAGE_SIZE);
+		ModelAndView modelAndView = new ModelAndView();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start", pageBean.getStart());
+		map.put("size", pageBean.getPageSize());
+		map.put("type", Constant.LEAVE_WORD);
+		map.put("state", Constant.COMMENT_STATE_PASS);
+		List<Comment> messages = commentService.list(map);
+		StringBuffer parm = new StringBuffer();
+		parm.append("state=3");
+		modelAndView.addObject("messages", messages);
+		modelAndView.addObject("pageCode", PageUtil.genPagination(request.getContextPath(), commentService.getTotal(map), currentPage, 10, parm.toString()));
+		modelAndView.addObject("pageTitle", "留言板");
+		modelAndView.addObject("mainPage", "foreground/system/message.jsp");
 		modelAndView.setViewName("mainTemp");
 		return modelAndView;
 	}

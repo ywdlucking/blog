@@ -30,7 +30,7 @@
 		</div>
 	    <div class="topnews">
 	      	<h2><b>文章</b>推荐</h2>
-			<c:forEach var="blog" items="${listBlog }">
+			<c:forEach var="blog" items="${listBlogRecommend }">
 				<div class="blogs">
 					<figure><img src="${pageContext.request.contextPath}/static/picture/${blog.picture }"></figure>
 					<ul>

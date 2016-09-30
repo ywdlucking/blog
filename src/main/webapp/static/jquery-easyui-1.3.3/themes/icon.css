@@ -143,3 +143,27 @@
 .icon-link{
 	background:url('usericons/link.png') no-repeat center center;
 }
+
+.icon-link-review{
+	background:url('usericons/links-review.png') no-repeat center center;
+}
+
+.icon-link-system{
+	background:url('usericons/links-system.png') no-repeat center center;
+}
+
+.icon-recommend-mg{
+	background:url('usericons/recommend-mg.png') no-repeat center center;
+}
+
+.icon-recommend-re{
+	background:url('usericons/recommend-re.png') no-repeat center center;
+}
+
+.icon-words-mg{
+	background:url('usericons/words-mg.png') no-repeat center center;
+}
+
+.icon-words-re{
+	background:url('usericons/words-re.png') no-repeat center center;
+}

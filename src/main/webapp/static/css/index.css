@@ -28,6 +28,8 @@
 .autor span { margin: 0 10px 0 0; padding-left: 20px }
 .autor span a { color: #759b08; }
 .autor span a:hover { text-decoration: underline }
+.ps1 { background: url(../images/bz.png) no-repeat left center }
+.ps { background: url(../images/person.png) no-repeat left center }
 .lm { background: url(../images/newsbg01.png) no-repeat left center }
 .dtime { background: url(../images/newsbg02.png) no-repeat left center }
 .viewnum { background: url(../images/newsbg04.png) no-repeat left center }

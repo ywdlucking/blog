@@ -1,7 +1,9 @@
 package com.ywd.blog.init;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -20,6 +22,7 @@ import com.ywd.blog.service.BlogService;
 import com.ywd.blog.service.BlogTypeService;
 import com.ywd.blog.service.BloggerService;
 import com.ywd.blog.service.LinkService;
+import com.ywd.blog.util.Constant;
 
 @Component
 public class InitComponent implements ServletContextListener, ApplicationContextAware {
@@ -45,7 +48,9 @@ public class InitComponent implements ServletContextListener, ApplicationContext
 		servletContext.setAttribute("blogger", blogger);
 		
 		LinkService linkService = (LinkService) applicationContext.getBean("linkService");
-		List<Link> links = linkService.list(null);
+		Map<String, Object> map = new HashMap<>();
+		map.put("state", Constant.LINK_TRUE);
+		List<Link> links = linkService.list(map);
 		servletContext.setAttribute("links", links);
 		
 		BlogTypeService blogTypeService = (BlogTypeService) applicationContext.getBean("blogTypeService");

@@ -92,7 +92,7 @@
 <body style="margin: 1px;">
 <table id="dg" title="友情连接管理" class="easyui-datagrid" 
   fitColumns="true" pagination="true" rownumbers="true"
-  url="${pageContext.request.contextPath}/admin/link/list.do" fit="true" toolbar="#tb">
+  url="${pageContext.request.contextPath}/admin/link/list.do?state=1" fit="true" toolbar="#tb">
   <thead>
   	<tr>
   		<th field="cb" checkbox="true" align="center"></th>

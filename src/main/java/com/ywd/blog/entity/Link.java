@@ -7,6 +7,8 @@ public class Link {
 	private String linkName; 
 	private String linkUrl;
 	private Integer orderNo;
+	private String linkDesc;
+	private Integer state;
 	
 	public Integer getId() {
 		return id;
@@ -32,6 +34,16 @@ public class Link {
 	public void setOrderNo(Integer orderNo) {
 		this.orderNo = orderNo;
 	}
-	
-	
+	public String getLinkDesc() {
+		return linkDesc;
+	}
+	public void setLinkDesc(String linkDesc) {
+		this.linkDesc = linkDesc;
+	}
+	public Integer getState() {
+		return state;
+	}
+	public void setState(Integer state) {
+		this.state = state;
+	}
 }

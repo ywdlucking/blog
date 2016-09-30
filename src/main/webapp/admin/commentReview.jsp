@@ -49,7 +49,7 @@
 <body style="margin: 1px;">
 <table id="dg" title="评论审核管理" class="easyui-datagrid" 
   fitColumns="true" pagination="true" rownumbers="true"
-  url="${pageContext.request.contextPath}/admin/comment/list.do?state=0" fit="true" toolbar="#tb">
+  url="${pageContext.request.contextPath}/admin/comment/list.do?state=0&type=2" fit="true" toolbar="#tb">
   <thead>
   	<tr>
   		<th field="cb" checkbox="true" align="center"></th>

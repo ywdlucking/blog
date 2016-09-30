@@ -12,7 +12,10 @@ public class Comment {
 	private Blog blog; // 被评论的博客
 	private Date commentDate; // 评论日期
 	private Integer state; // 审核状态 0 待审核 1 审核通过 2 审核未通过
-	private ReComment reComment; //回复评论
+	private String reComment; //回复评论
+	private Date reCommentDate;
+	private Integer type;  //类型 0错误类型 1建议 2博客评论 3留言
+	private String picture;
 	
 	public Integer getId() {
 		return id;
@@ -56,16 +59,34 @@ public class Comment {
 	public void setCommentName(String commentName) {
 		this.commentName = commentName;
 	}
-	public ReComment getReComment() {
-		return reComment;
-	}
-	public void setReComment(ReComment reComment) {
-		this.reComment = reComment;
-	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getReComment() {
+		return reComment;
+	}
+	public void setReComment(String reComment) {
+		this.reComment = reComment;
+	}
+	public Date getReCommentDate() {
+		return reCommentDate;
+	}
+	public void setReCommentDate(Date reCommentDate) {
+		this.reCommentDate = reCommentDate;
+	}
+	public Integer getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = type;
+	}
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 }

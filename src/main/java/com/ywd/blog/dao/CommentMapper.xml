@@ -12,8 +12,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="content" column="content"/>
 		<result property="commentDate" column="commentDate"/>
 		<result property="state" column="state"/>
+		<result property="reComment" column="reComment"/>
+		<result property="reCommentDate" column="reCommentDate"/>
+		<result property="type" column="type"/>
+		<result property="picture" column="picture"/>
 		<association property="blog" column="blogId" select="com.ywd.blog.dao.BlogDao.findById"></association>
-		<association property="reComment" column="reCommentId" select="com.ywd.blog.dao.ReCommentDao.findById"></association>
 	</resultMap>
 	
 	<select id="list" parameterType="Map" resultMap="CommentResult">
@@ -25,6 +28,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="state!=null">
 				and state=#{state}
 			</if>
+			<if test="type!=null">
+				and type=#{type}
+			</if>
 		</where>
 		order by commentDate desc
 		<if test="start!=null and size!=null">
@@ -33,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="add" parameterType="Comment">
-		insert into t_comment values(null,#{commentName},#{email},#{userIp},#{blog.id},#{content},now(),0,null);
+		insert into t_comment values(null,#{commentName},#{email},#{userIp},#{blog.id},#{content},now(),0,null,null,#{type},#{picture});
 	</insert>
 	
 	<select id="getTotal" parameterType="Map" resultType="Long">
@@ -45,6 +51,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="state!=null">
 				and state=#{state}
 			</if>
+			<if test="type!=null">
+				and type=#{type}
+			</if>
 		</where>
 	</select>
 	
@@ -54,6 +63,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="state!=null">
 				state=#{state},
 			</if>
+			<if test="reComment!=null">
+				reComment=#{reComment},reCommentDate=#{reCommentDate},
+			</if>
 		</set>
 		where id=#{id}
 	</update>
@@ -61,4 +73,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="Integer">
 		delete from t_comment where id=#{id}
 	</delete>
+	
+	<select id="findById" parameterType="Integer" resultMap="CommentResult">
+		select * from t_comment where id=#{id}
+	</select>
 </mapper> 

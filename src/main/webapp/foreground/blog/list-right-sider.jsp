@@ -47,32 +47,23 @@
      <div class="ms-main" id="ms-main">
         <div style="display: block;" class="bd bd-news" >
           <ul>
-            <li><a href="/" target="_blank">住在手机里的朋友</a></li>
-            <li><a href="/" target="_blank">教你怎样用欠费手机拨打电话</a></li>
-            <li><a href="/" target="_blank">原来以为，一个人的勇敢是，删掉他的手机号码...</a></li>
-            <li><a href="/" target="_blank">手机的16个惊人小秘密，据说99.999%的人都不知</a></li>
-            <li><a href="/" target="_blank">你面对的是生活而不是手机</a></li>
-            <li><a href="/" target="_blank">豪雅手机正式发布! 在法国全手工打造的奢侈品</a></li>
+            <c:forEach var="blog" items="${listBlogTop }">
+	          	<li><a href="${pageContext.request.contextPath}/blog/articles/${blog.id }.html" target="_blank">${blog.title }</a></li>
+	        </c:forEach>
           </ul>
         </div>
         <div  class="bd bd-news">
           <ul>
-            <li><a href="/" target="_blank">原来以为，一个人的勇敢是，删掉他的手机号码...</a></li>
-            <li><a href="/" target="_blank">手机的16个惊人小秘密，据说99.999%的人都不知</a></li>
-            <li><a href="/" target="_blank">住在手机里的朋友</a></li>
-            <li><a href="/" target="_blank">教你怎样用欠费手机拨打电话</a></li>
-            <li><a href="/" target="_blank">你面对的是生活而不是手机</a></li>
-            <li><a href="/" target="_blank">豪雅手机正式发布! 在法国全手工打造的奢侈品</a></li>
+            <c:forEach var="blog" items="${listBlogNew }">
+	          	<li><a href="${pageContext.request.contextPath}/blog/articles/${blog.id }.html" target="_blank">${blog.title }</a></li>
+	          </c:forEach>
           </ul>
         </div>
         <div class="bd bd-news">
           <ul>
-            <li><a href="/" target="_blank">手机的16个惊人小秘密，据说99.999%的人都不知</a></li>
-            <li><a href="/" target="_blank">你面对的是生活而不是手机</a></li>
-            <li><a href="/" target="_blank">住在手机里的朋友</a></li>
-            <li><a href="/" target="_blank">豪雅手机正式发布! 在法国全手工打造的奢侈品</a></li>
-            <li><a href="/" target="_blank">教你怎样用欠费手机拨打电话</a></li>
-            <li><a href="/" target="_blank">原来以为，一个人的勇敢是，删掉他的手机号码...</a></li>
+	          <c:forEach var="blog" items="${listBlogRecommend }">
+	          	<li><a href="${pageContext.request.contextPath}/blog/articles/${blog.id }.html" target="_blank">${blog.title }</a></li>
+	          </c:forEach>
           </ul>
         </div>
       </div>      
@@ -82,7 +73,7 @@
       <h3>日志类别</h3>
       <ul>
         <c:forEach var="blogType" items="${blogTypes }">
-			<li><a href="${pageContext.request.contextPath}/index.html?typeId=${blogType.id }">${blogType.typeName }(${blogType.blogCount })</a></li>
+			<li><a href="${pageContext.request.contextPath}/article.html?typeId=${blogType.id }">${blogType.typeName }(${blogType.blogCount })</a></li>
 		 </c:forEach>
       </ul>
     </div>
@@ -91,7 +82,7 @@
       <h3>时间列表</h3>
       <ul>
 		 <c:forEach var="blog" items="${blogs }">
-			<li><span><a href="${pageContext.request.contextPath}/index.html?releaseDateStr=${blog.releaseDateStr }">${blog.releaseDateStr }(${blog.blogCount })</a></span></li>
+			<li><span><a href="${pageContext.request.contextPath}/article.html?releaseDateStr=${blog.releaseDateStr }">${blog.releaseDateStr }(${blog.blogCount })</a></span></li>
 		</c:forEach>
 	  </ul>
     </div>
@@ -99,11 +90,77 @@
     <div class="ad"> <img src="${pageContext.request.contextPath}/static/picture/01.jpg"> </div>
     
     <div class="links">
-      <h3><span>[<a href="/">申请友情链接</a>]</span>友情链接</h3>
+      <h3><span>[<a href="javascript:$('#askfor_link').modal('show')">申请友情链接</a>]</span>友情链接</h3>
       <ul>
         <c:forEach var="link" items="${links }">
 			<li><a href="${link.linkUrl }" target="_blank">${link.linkName }</a></li>							
 		</c:forEach>
       </ul>
     </div>
+</div>
+
+<script>
+
+	function limitTextArea() {
+		var max = 400;
+		var field = $("#askfor_textarea").val();
+		if(field.length>max){
+			field = field.substring(0,max);
+		}else{
+			$("#askfor_counter").text(max-field.length);
+		}
+		$("#askfor_textarea").val(field)
+	}
+	function askforLink() {
+		var content = $("#askfor_textarea").val();
+		var link = $("#askfor_linkUrl").val();
+		if(content == "" || link == ""){
+			$('#askfor_link').modal('hide');
+			window.wxc.xcConfirm("请填写反馈信息", window.wxc.xcConfirm.typeEnum.info);
+		}else{
+			$.ajax({
+				type : 'POST',
+				url : '${pageContext.request.contextPath}/link/save.do',
+				data : {
+					linkDesc:content,
+					linkUrl:link
+				},
+				dataType:'json',
+				success : function(result){
+					if(result.success){
+						window.wxc.xcConfirm("反馈信息提交成功", window.wxc.xcConfirm.typeEnum.success);
+						$('#askfor_link').modal('hide');
+						$("#askfor_textarea").val("");
+						$("#askfor_link").val("");
+					}else{
+						window.wxc.xcConfirm("反馈信息提交失败", window.wxc.xcConfirm.typeEnum.error);
+					}
+				}
+			});
+		}
+	}
+</script>
+
+<div class="modal fade" id="askfor_link" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel"><span style="font-weight: bold;">友情连接申请</span></h4>
+      </div>
+      <div class="modal-body">
+      	<div class="modal-body-p">
+      	  	<div><label><span style="color: red;">*</span>推荐理由</label></div>
+      	  	<div><textarea id="askfor_textarea" oninput="limitTextArea()" rows="" cols="" placeholder="请对网站简单说明"></textarea></div>
+      	  	<div style="float: right;">还可以输入<span id="askfor_counter">400</span>个字符</div>
+      	  	<div style="margin-top: 20px;"><label><span style="color: red;">*</span>地址链接（必填）</label></div>
+      	  	<div><input id="askfor_linkUrl" type="text" placeholder="如：http://www.100java.com/" /></div>
+      	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-success" onclick="askforLink()">提交</button>
+      </div>
+    </div>
+  </div>
 </div>

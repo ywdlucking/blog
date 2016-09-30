@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.ywd.blog.service.EmailService;
 
+@Service("emailService")
 public class EmailServiceImpl implements EmailService {
 	
 	private static String HOST = "smtp.sina.com";  

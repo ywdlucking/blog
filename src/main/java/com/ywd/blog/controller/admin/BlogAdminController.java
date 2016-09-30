@@ -22,7 +22,6 @@ import com.ywd.blog.lucene.BlogIndexService;
 import com.ywd.blog.service.BlogService;
 import com.ywd.blog.service.IndexService;
 import com.ywd.blog.util.DateJsonValueProcessor;
-import com.ywd.blog.util.DateUtil;
 import com.ywd.blog.util.ResponseUtil;
 import com.ywd.blog.util.StringUtil;
 
