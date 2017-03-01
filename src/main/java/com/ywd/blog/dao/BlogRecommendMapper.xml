@@ -11,22 +11,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	<select id="list" parameterType="Map" resultMap="BlogRecommendResult">
-		select * from t_blogRecommend order by orderNo
+		select * from t_blogrecommend order by orderNo
 		<if test="start!=null and size!=null">
 			limit #{start},#{size}
 		</if>
 	</select>
 	
 	<select id="getTotal" parameterType="Map" resultType="Long">
-		select count(*) from t_blogRecommend
+		select count(*) from t_blogrecommend
 	</select>
 	
 	<insert id="add" parameterType="BlogRecommend">
-		insert into t_blogRecommend values(null,#{recommendId},#{orderNo})
+		insert into t_blogrecommend values(null,#{recommendId},#{orderNo})
 	</insert>
 	
 	<update id="update" parameterType="BlogRecommend">
-		update t_blogRecommend 
+		update t_blogrecommend 
 		<set>
 			<if test="recommendId!=null">
 				BlogRecommendName=#{BlogRecommendName},
@@ -39,6 +39,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<delete id="delete" parameterType="Integer">
-		delete from t_blogRecommend where id=#{id}
+		delete from t_blogrecommend where id=#{id}
 	</delete>
 </mapper> 

@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>年会抽奖</title>
+<link rel="stylesheet" href="../bootstrap3/css/bootstrap.css">
+<style type="text/css">
+html, body {
+	height: 100%;
+}
+
+body {
+	background-color: #000000;
+	margin: 0;
+	font-family: Helvetica, sans-serif;;
+	overflow: hidden;
+}
+
+a {
+	color: #ffffff;
+}
+
+.element {
+	width: 120px;
+	height: 160px;
+	box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
+	border: 1px solid rgba(127, 255, 255, 0.25);
+	text-align: center;
+	cursor: default;
+}
+
+.element:hover {
+	box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75);
+	border: 1px solid rgba(127, 255, 255, 0.75);
+}
+
+.element .img {
+	display: block;
+	width: 120px;
+	height: 120px;
+}
+
+.element .name {
+	width: 120px;
+	height: 40px;
+	color: rgba(127, 255, 255, 0.75);
+	font-size: 12px;
+	line-height: 40px;
+	text-align: center;
+}
+
+.element.active, .element.chou {
+	box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.9) !important;
+	border: 1px solid rgba(204, 204, 204, 0.9) !important;
+	background-color: rgba(127, 255, 255, 0.9) !important;
+}
+
+.element.active .name {
+	color: #fff !important;
+}
+
+.element.chou .name {
+	color: #fff !important;
+}
+
+#menu {
+	position: absolute;
+	top: 20px;
+	width: 100%;
+	text-align: center;
+}
+
+button {
+	color: rgba(127, 255, 255, 0.75);
+	background: transparent;
+	outline: 1px solid rgba(127, 255, 255, 0.75);
+	border: 0px;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: rgba(0, 255, 255, 0.5);
+}
+
+button:active {
+	color: #000000;
+	background-color: rgba(0, 255, 255, 0.75);
+}
+
+#list_Lottery {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	height: auto;
+	max-height: 728px;
+	border: 1px solid rgba(127, 255, 255, 0.7);
+	overflow-y: auto;
+	overflow-x: hidden;
+	color: rgba(127, 255, 255, 0.75);
+	padding: 5px 15px;
+	cursor: pointer;
+}
+
+#list_Lottery:hover {
+	background-color: rgba(0, 255, 255, 0.5);
+}
+
+#setting_board {
+	position: absolute;
+	top: 55px;
+	width: 100%;
+	text-align: center;
+}
+
+.well {
+	color: rgba(127, 255, 255, 0.75);
+	background: rgba(0, 255, 255, 0.5);
+	outline: 1px solid rgba(127, 255, 255, 0.75);
+	border: 0px;
+	padding: 5px 10px;
+}
+
+#chou_count {
+	/* 	color: rgba(127, 255, 255, 0.75); */
+	color: white;
+	background: transparent;
+	outline: 1px solid rgba(127, 255, 255, 0.75);
+	border: 0px;
+	padding: 5px 10px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.element.zhong{
+	width: 180px;
+	height: 240px;
+	text-align: center;
+	box-shadow: 0px 0px 12px rgba(0,255,255,0.9);
+	border: 1px solid rgba(204,204,204,0.9);
+	background-color: rgba(127,255,255,0.9);
+	cursor: pointer;
+	display: inline-block;
+	padding: 0 auto;
+	margin: 10px 15px;
+}
+.element.zhong .img {
+	display: block;
+	width: 180px;
+	height: 180px;
+}
+.element.zhong .name{
+	width: 180px;
+	height: 60px;
+	color: #333;
+	font-size: 25px;
+	line-height: 60px;
+	font-weight: 600;
+}
+
+.modal-lg-ywd {
+	width: 872px;
+}
+
+.list-person {
+	width: 180px;
+	display: inline-block;
+	padding: 5px 10px;
+	margin: 5px 10px;
+	background: #AAAAAA;
+	color: white;
+	font-size: 16px;
+}
+
+</style>
+</head>
+<body>
+	<script src="../bootstrap3/js/jquery-1.11.2.min.js"
+		type="text/javascript"></script>
+	<script src="js/three.js"></script>
+	<script src="js/tween.min.js"></script>
+	<script src="js/TrackballControls.js"></script>
+	<script src="js/CSS3DRenderer.js"></script>
+	<script src="../bootstrap3/js/bootstrap.js"></script>
+
+	<div id="container"></div>
+
+	<div id="menu">
+		<button id="lottery_setting" type="button" data-toggle="collapse"
+			data-target="#setting_board" aria-expanded="false"
+			aria-controls="setting_board">设置抽奖条件</button>
+		<button id="start_Lottery" onclick="beginLottery()">开始抽奖</button>
+		<button id="stop_Lottery" onclick="stopLottery()">停止抽奖</button>
+	</div>
+	<button id="list_Lottery" type="button" onclick="showLotteryList()">中奖名单</button>
+
+	<div class="collapse " id="setting_board">
+		<div class="well">
+			<div class="row">
+				<div class="col-md-2">选择抽奖级别：</div>
+				<div class="col-md-1">特等奖：</div>
+				<div class="col-md-1">
+					<input type="radio" value="0" checked="checked" name="c">
+				</div>
+				<div class="col-md-1">一等奖：</div>
+				<div class="col-md-1">
+					<input type="radio" value="1" name="c">
+				</div>
+				<div class="col-md-1">二等奖：</div>
+				<div class="col-md-1">
+					<input type="radio" value="2" name="c">
+				</div>
+				<div class="col-md-1">三等奖：</div>
+				<div class="col-md-1">
+					<input type="radio" value="3" name="c">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2">选择中奖人数：</div>
+				<div class="col-md-1">
+					<input id="chou_count" type="text" value="0"
+						placeholder="输入人数，默认为0">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="tip"></div>
+	
+	<div id="modal_lottery" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	  <div class="modal-dialog modal-lg-ywd" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h3 class="modal-title" id="myModalLabel"></h3>
+	      </div>
+	      <div id="modal_lottery_body" class="modal-body">
+	      		
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<div id="modal_lottery_list" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h3 class="modal-title" id="myModalLabel">中奖名单</h3>
+	      </div>
+	      <div id="modal_lottery_list_body" class="modal-body">
+	      		<div><h4>特等奖</h4></div>
+	      		<hr>
+	      		<div id="te"></div>
+	      		<hr>
+	      		<div><h4>一等奖</h4></div>
+	      		<hr>
+	      		<div id="yi"></div>
+	      		<hr>
+	      		<div><h4>二等奖</h4></div>
+	      		<hr>
+	      		<div id="er"></div>
+	      		<hr>
+	      		<div><h4>三等奖</h4></div>
+	      		<hr>
+	      		<div id="san"></div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+
+	<script type="text/javascript">
+		var index = 0;
+		var cols = 24;
+		var chouuser = [];
+		var zhongchouuser = [];
+		var chouuserLottery = [];
+		var table = [];
+		var canLottery = true;
+		var lotteryUser = new Array();
+		var chou_count = 0;
+		var intervalId;
+		var types = [ 'table', 'sphere', 'helix', 'grid' ];
+		var level;
+		var lottery = new Array();
+
+		$.ajax({
+			type : "GET",
+			url : "/lottery/findAllUser.do",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			async : false,
+			success : function(data) {
+				table = data;
+			}
+		});
+
+		var camera, scene, renderer;
+		var controls;
+
+		var objects = [];
+		var targets = {
+			table : [],
+			sphere : [],
+			helix : [],
+			grid : []
+		};
+
+		init();
+		animate();
+
+		function init() {
+
+			camera = new THREE.PerspectiveCamera(40, window.innerWidth
+					/ window.innerHeight, 1, 10000);
+			camera.position.z = 3000;
+
+			scene = new THREE.Scene();
+
+			// table
+			var rows = Math.ceil(table.length / cols);
+			for (var i = 0; i < rows; i++) {
+				for (var j = 0; j < cols; j++) {
+
+					if (index >= table.length)
+						continue;
+
+					var user = table[index];
+
+					var element = document.createElement('div');
+					element.setAttribute('id', 'item_' + index++);
+					element.className = 'element';
+					element.style.backgroundColor = 'rgba(0,127,127,0.5)';
+
+					var img = document.createElement('img');
+					img.className = 'img';
+					img.src = "images/lottery/" + user.userImg;
+					element.appendChild(img);
+
+					var name = document.createElement('div');
+					name.className = 'name';
+					name.innerHTML = user.userName;
+					element.appendChild(name);
+
+					var object = new THREE.CSS3DObject(element);
+					object.position.x = Math.random() * 4000 - 2000;
+					object.position.y = Math.random() * 4000 - 2000;
+					object.position.z = Math.random() * 4000 - 2000;
+					scene.add(object);
+
+					objects.push(object);
+					chouuser.push(user);
+					//
+
+					var object = new THREE.Object3D();
+					object.position.x = (j * 140) - 1366;
+					object.position.y = -(i * 180) + 634;
+
+					targets.table.push(object);
+
+				}
+			}
+			// sphere
+
+			var vector = new THREE.Vector3();
+			var spherical = new THREE.Spherical();
+
+			for (var i = 0, l = objects.length; i < l; i++) {
+
+				var phi = Math.acos(-1 + (2 * i) / l);
+				var theta = Math.sqrt(l * Math.PI) * phi;
+
+				var object = new THREE.Object3D();
+
+				spherical.set(800, phi, theta);
+
+				object.position.setFromSpherical(spherical);
+
+				vector.copy(object.position).multiplyScalar(2);
+
+				object.lookAt(vector);
+
+				targets.sphere.push(object);
+
+			}
+
+			// helix
+
+			var vector = new THREE.Vector3();
+			var cylindrical = new THREE.Cylindrical();
+
+			for (var i = 0, l = objects.length; i < l; i++) {
+
+				var theta = i * 0.175 + Math.PI;
+				var y = -(i * 8) + 700;
+
+				var object = new THREE.Object3D();
+
+				cylindrical.set(800, theta, y);
+
+				object.position.setFromCylindrical(cylindrical);
+
+				vector.x = object.position.x * 2;
+				vector.y = object.position.y;
+				vector.z = object.position.z * 2;
+
+				object.lookAt(vector);
+
+				targets.helix.push(object);
+
+			}
+
+			// grid
+
+			for (var i = 0; i < objects.length; i++) {
+
+				var object = new THREE.Object3D();
+
+				object.position.x = ((i % 5) * 400) - 800;
+				object.position.y = (-(Math.floor(i / 5) % 5) * 400) + 500;
+				object.position.z = (Math.floor(i / 25)) * 1000 - 8000;
+
+				targets.grid.push(object);
+
+			}
+
+			//
+
+			renderer = new THREE.CSS3DRenderer();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.domElement.style.position = 'absolute';
+			document.getElementById('container').appendChild(
+					renderer.domElement);
+
+			//
+
+			controls = new THREE.TrackballControls(camera, renderer.domElement);
+			controls.rotateSpeed = 0.5;
+			controls.minDistance = 500;
+			controls.maxDistance = 6000;
+			controls.addEventListener('change', render);
+
+			transform(targets.table, 2000);
+
+			window.addEventListener('resize', onWindowResize, false);
+
+		}
+
+		function transform(targets, duration) {
+
+			TWEEN.removeAll();
+
+			for (var i = 0; i < objects.length; i++) {
+
+				var object = objects[i];
+				var target = targets[i];
+
+				new TWEEN.Tween(object.position).to({
+					x : target.position.x,
+					y : target.position.y,
+					z : target.position.z
+				}, Math.random() * duration + duration).easing(
+						TWEEN.Easing.Exponential.InOut).start();
+
+				new TWEEN.Tween(object.rotation).to({
+					x : target.rotation.x,
+					y : target.rotation.y,
+					z : target.rotation.z
+				}, Math.random() * duration + duration).easing(
+						TWEEN.Easing.Exponential.InOut).start();
+
+			}
+
+			new TWEEN.Tween(this).to({}, duration * 2).onUpdate(render).start();
+
+		}
+
+		function onWindowResize() {
+
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(window.innerWidth, window.innerHeight);
+
+			render();
+
+		}
+
+		function animate() {
+
+			requestAnimationFrame(animate);
+
+			TWEEN.update();
+
+			controls.update();
+
+		}
+
+		function render() {
+
+			renderer.render(scene, camera);
+
+		}
+
+		function beginLottery() {
+			if (canLottery) {
+				canLottery = false;
+				chou_count = $('#chou_count').val();
+				if (chou_count == 0) {
+					alert("请点击抽奖条件设置，设置中奖人数");
+					return;
+				}
+				level = $("input[name='c']:checked").val();
+				hideTip();
+				intervalId = setInterval(
+						function() {
+							$('.element').removeClass('active');
+							var itemIndex = Math.floor(Math.random()
+									* chouuser.length);
+							$('#item_' + itemIndex).addClass('active');
+						}, 150);
+				var type = types[Math.floor(Math.random() * 4)];
+				transform(targets[type], 2000);
+			}
+		}
+
+		function stopLottery() {
+			if (!canLottery) {
+				if (intervalId)
+					clearInterval(intervalId);
+
+				intervalId = setInterval(
+						function() {
+							var itemIndex = Math.floor(Math.random()
+									* chouuser.length);
+							//判断该用户是否中过
+							if (chouuser[itemIndex]) {
+								$('#item_' + itemIndex).addClass('active');
+								var l = lotteryUser.push(itemIndex);
+								zhongchouuser[itemIndex] = chouuser[itemIndex];
+								delete chouuser[itemIndex];
+							}
+							if (lotteryUser.length == chou_count) {
+								clearInterval(intervalId);
+								showlotteryUser();
+							}
+						}, 150);
+
+			}
+		}
+
+		function showlotteryUser() {
+			$('.element').removeClass('active');
+			for (var i = 0; i < lotteryUser.length; i++) {
+				var $item = $('#item_' + lotteryUser[i]);
+				$item.addClass('chou');
+				var $itemL= $('<div class="element zhong"></div>').append(
+						$item.html());
+				if(chou_count == 1){
+					$itemL.addClass('');
+				}
+				$('#modal_lottery_body').append($itemL).fadeIn();
+				var person = new Object(); 
+				person.name = zhongchouuser[lotteryUser[i]].userName;
+				person.no = zhongchouuser[lotteryUser[i]].userNo
+				lottery.push(person);
+			}
+			$('#modal_lottery').modal('show');
+			$mtitle = createTitle();
+			$('#myModalLabel').html($mtitle);
+			//保存中奖人信息
+			savelotteryInfo();
+			//清空中奖人的id
+			lotteryUser.splice(0, lotteryUser.length);
+			lottery.splice(0, lottery.length);
+			canLottery = true;
+		}
+		
+		function hideTip(){
+			$('#modal_lottery_body').fadeOut(function(){
+				$(this).empty();
+			});
+		}
+		
+		function createTitle(){
+			if(level == 0){
+				return '特等奖--中奖名单';
+			}else if(level == 1){
+				return '一等奖--中奖名单';
+			}else if(level == 2){
+				return '二等奖--中奖名单';
+			}else if(level == 3){
+				return '三等奖--中奖名单';
+			}
+			
+		}
+		
+		function showLotteryList(){
+			
+			var result;
+			$.ajax({
+				type : "GET",
+				url : "/lottery/findAllLotteryUser.do",
+				contentType : "application/json; charset=utf-8",
+				dataType:"json",
+				async : false,
+				success : function(data) {
+					result = data;
+				}
+			});
+			if(result.te){
+				var ar = result.te;
+				 $.each(ar, function (index, obj) {
+					 var $itemte= $('<div class="list-person"></div>').append(
+							 obj.userNo+" "+obj.userName);
+						$('#te').append($itemte).fadeIn();
+		            });
+			}
+			if(result.yi){
+				var ar = result.yi;
+				 $.each(ar, function (index, obj) {
+					 var $itemte= $('<div class="list-person"></div>').append(
+							 obj.userNo+" "+obj.userName);
+						$('#yi').append($itemte).fadeIn();
+		            });
+			}
+			if(result.er){
+				var ar = result.er;
+				 $.each(ar, function (index, obj) {
+					 var $itemte= $('<div class="list-person"></div>').append(
+							 obj.userNo+" "+obj.userName);
+						$('#er').append($itemte).fadeIn();
+		            });
+			}
+			if(result.san){
+				var ar = result.san;
+				 $.each(ar, function (index, obj) {
+					 var $itemte= $('<div class="list-person"></div>').append(
+							 obj.userNo+" "+obj.userName);
+						$('#san').append($itemte).fadeIn();
+		            });
+			}
+			$('#modal_lottery_list').modal('show');
+		}
+		
+		function savelotteryInfo(){
+			$.ajax({
+				type : "POST",
+				url : "/lottery/saveLotteryUser.do",
+				async : true,
+				data : {
+					level: level,
+					info: JSON.stringify(lottery)
+				},
+				success : function(data) {
+					
+				}
+			});
+		}
+		
+		$(function () { $('#modal_lottery_list').on('hide.bs.modal', function () {
+			$('#te').fadeOut(function(){
+				$(this).empty();
+			});
+			$('#yi').fadeOut(function(){
+				$(this).empty();
+			});
+			$('#er').fadeOut(function(){
+				$(this).empty();
+			});
+			$('#san').fadeOut(function(){
+				$(this).empty();
+			});
+		      })
+		   });
+	</script>
+
+
+</body>
+</html>

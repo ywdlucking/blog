@@ -4,20 +4,7 @@
   <p class="ft-copyright">土豆说 Design by 神奇小土豆  沪公网安备 31011202001459号</p>
   <div id="tbox"> 
 	  <a id="togbook" href="javascript:$('#fedback').modal('show')"></a> 
-	  <a id="gotop" href="javascript:document.documentElement.scrollTop = document.body.scrollTop =0"></a>
-	  <a></a>
-	  <form onsubmit="submitFn(this, event);">
-            <div class="search-wrapper">
-                <div class="input-holder">
-                    <input type="text" class="search-input" placeholder="Type to search" />
-                    <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
-                </div>
-                <span class="close" onclick="searchToggle(this, event);"></span>
-                <div class="result-container">
-
-                </div>
-            </div>
-       </form> 
+	  <a id="gotop" href="javascript:document.documentElement.scrollTop = document.body.scrollTop =0"></a>   
   </div>
 </footer>
 <script type="text/javascript">

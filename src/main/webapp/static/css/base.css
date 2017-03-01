@@ -188,3 +188,17 @@ _margin-bottom: 15px; }/*解决IE6下不兼容 position:fixed 的问题*/
 .autor1 span a { color: #759b08; }
 .autor1 span a:hover { text-decoration: underline }
 .mg {margin-left: 40px;}
+
+/*检索*/
+.results{
+	margin: 0 10px;
+	border-bottom: #CCC 1px solid;
+}
+.results h3{
+	font-size: 16px;
+}
+.results p {font-size: 14px;}
+.results .time { display: inline-block;}
+.results h3 { display: inline-block;}
+.results .ml {margin-left: 10px; padding-left: 18px;}
+.no-results { margin-top: 15px; font-size: 16px;text-align: center;}

@@ -15,7 +15,32 @@
       </div>
     </div>
     <!--tit01 end-->
-    <div class="ad"> <img src="${pageContext.request.contextPath}/static/picture/ad300x100.jpg"> </div>
+    <div class="ad"> 
+    	<div class="tit01">
+	      <h3>全文检索</h3>
+	      <div class="gzwm clear">
+	         <div class="input-group">
+			      <input id="search-context" type="text" class="form-control">
+			      <span class="input-group-btn">
+			        <button class="btn btn-success" type="button" onclick="search()">检索</button>
+			      </span>
+			    </div>
+			  </div>
+			  <a id="a-search" href="/"></a>
+	      </div>
+    </div>
+    <script type="text/javascript">
+    	function search(){
+    		var q = $("#search-context").val();
+    		if(q == ""){
+    			window.wxc.xcConfirm("请填写检索内容", window.wxc.xcConfirm.typeEnum.info);
+    		}else{
+	    		var h = "${pageContext.request.contextPath}/blog/q.html?q="+q;
+	    		$("#a-search").attr("href",h);
+	    		$("#a-search")[0].click();
+    		}
+    	}
+    </script>
     
     <div class="moreSelect" id="lp_right_select">
      <script>

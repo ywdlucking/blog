@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>点点的小窝</title>
+<meta name="keywords" content="single, slider, free templates, website templates, CSS, HTML" />
+<meta name="description" content="Single Slider is a free CSS template provided by templatemo.com" />
+<link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
+
+<script src="js/jquery-1.2.6.min.js" type="text/javascript"></script>
+<script src="js/jquery.easing.1.3.js" type="text/javascript"></script>
+<script src="js/jquery.kwicks-1.5.1.pack.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	$().ready(function() {  
+		$('.kwicks').kwicks({  
+			max : 710,  
+			spacing : 0,  
+			sticky: true,
+		});  
+		var s = localStorage.getItem("words").split(",");
+		for(var i=0;i<s.length;i++){
+			var ul=document.getElementById("show");             
+	        var obj=document.createElement("li");         
+	        obj.innerHTML = s[i];           
+	        ul.appendChild(obj);
+		}
+	}); 
+	
+	
+	var mycars = new Array();
+	
+	var data = new Array("你确定？重新选一下吧","唉，你太不诚实了","摸着你的胸口，重新选一次吧","你没救了，但是我还是愿意给你一次机会","please try again");
+	
+	function chou1(){
+		alert("嗯嗯，这个闻起来真的臭");
+	}
+	function chou2(){
+		alert("臭豆腐不臭还有什么臭");
+	}
+	function chou3(){
+		var i = Math.floor(Math.random()*5);
+		alert(data[i]);
+	}
+	function xiang1(){
+		alert("你喜欢，这个就是香的");
+	}
+	function xiang2(){
+		alert("香？搞错没有。。。也只有吃起来香吧");
+	}
+	function xiang3(){
+		alert("你是个诚实的人，我为你骄傲");
+	}
+	
+	function shuo(){
+		alert("还有异议吗？没有，哈哈");
+	}
+	
+	function noshuo(){
+		alert("你不说我也知道，小样");
+	}
+	
+	function addword(){
+		var gw = document.getElementById("gword").value;
+		mycars[mycars.length] = gw;
+		var ul=document.getElementById("show");             
+        var obj=document.createElement("li");         
+        obj.innerHTML = gw;           
+        ul.appendChild(obj);
+        localStorage.setItem("words",mycars);
+	}
+</script>
+
+<link rel="stylesheet" href="css/slimbox2.css" type="text/css" media="screen" /> 
+<script type="text/JavaScript" src="js/slimbox2.js"></script> 
+
+<style>
+	.header{ font-size: 16px;color: white;}
+	.inner span{ font-size: 16px;line-height: 30px;}
+	.inner input{ 
+	font-size: 14px; padding: 4px 10px;line-height: 20px;cursor: pointer;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	border-radius:10px;
+	margin-right: 20px;
+	}
+	.liuyan{background-color: white;color: black;width: 100%;height: 150px;overflow-y:auto;}
+</style>
+</head>
+
+<body>
+
+<div id="templatemo_wrapper">
+	<div id="templatemo_main">
+	
+		<div id="site_title">
+			<h1><a href="#"></a></h1>
+		</div>
+		
+		<div id="templatemo_content">
+			<ul class="kwicks">
+			
+				<li id="home"><span class="header" style="">土豆是啥</span>
+					<div class="inner">
+						<h2>土豆</h2>
+						<p><em>土豆学名马铃薯（学名：Solanum tuberosum L.），属茄科多年生草本植物，块茎可供食用，是全球第四大重要的粮食作物，仅次于小麦、稻谷和玉米。马铃薯又称地蛋、土豆 、洋山芋等，茄科植物的块茎。与小麦、稻谷、玉米、高粱并成为世界五大作物。</em></p>
+						<img src="images/templatemo_image_01.jpg" alt="Image 01" class="image_fl" />
+						<div class="col_half float_r">
+							<p><a href="#">主要产地</a> 中国、俄罗斯、印度、乌克兰、美国等。中国是世界马铃薯总产最多的国家。</p>
+							<h3>加工</h3>
+							<ul class="templatemo_list">
+								<li>馒头</li>
+								<li>面条</li>
+								<li>米粉</li>
+							</ul>
+						</div>
+					</div>
+				</li>
+			
+				<li id="about"><span class="header">土豆好东西啊</span>
+					<div class="inner">
+						<h2>营养</h2>
+						<img src="images/templatemo_image_02.jpg" alt="Image 02" class="image_fr" />
+						<p><em>马铃薯也是所有粮食作物中维生素含量最全的，其含量相当于胡萝卜的2倍、大白菜的3倍、番茄的4倍，B族维生素更是苹果的4倍。</em></p>
+						<p>马铃薯蛋白质营养价值高。</p>
+						<p>马铃薯块茎含有多种维生素和无机盐。</p>
+						<p>马铃薯块茎水分多、脂肪少、单位体积的热量相当低。</p>
+						<p>马铃薯具有抗衰老的功效。</p>
+					</div>
+				</li>
+			
+				<li id="social"><span class="header">还在等什么</span>
+					<div class="inner">
+						<h2>吃吧</h2>
+						<p><em>太多太多了，我都不想说了，自己看吧！！！！！</em></p>
+						<ul class="social_links">
+							<li><a href="http://jingyan.baidu.com/article/1876c852b12e85890b13760c.html" class="facebook" target="_blank">煮</a></li>
+							<li><a href="http://baike.baidu.com/view/141382.htm" class="flickr" target="_blank">蒸</a></li>
+							<li><a href="https://life.yxlady.com/food/201509/215339.shtml" class="linkedin" target="_blank">炸</a></li>
+							<li><a href="https://life.yxlady.com/food/201509/223726.shtml" class="twitter" target="_blank">炒</a></li>
+							<li><a href="http://www.meishij.net/zuofa/zirankaotudou_1.html" class="yahoo" target="_blank">烤</a></li>
+							<li><a href="http://www.meishij.net/zuofa/duntudou_2.html" class="youtube" target="_blank">炖</a></li>
+						</ul>
+					</div>
+				</li>
+			
+				<li id="portfolio"><span class="header">土豆臭吗</span>
+					<div class="inner">
+						<h2>请摸着良心来回答</h2>
+						<ul>
+							<li style="margin-bottom: 15px;">
+								<span>榴莲臭么？</span>
+								<div><input type="button" value="很臭" onclick="chou1()"/> <input type="button" value="很香" onclick="xiang1()"/></div>
+							</li>
+							<li style="margin-bottom: 15px;">
+								<span>臭豆腐臭么？</span>
+								<div><input type="button" value="很臭" onclick="chou2()"/> <input type="button" value="很香" onclick="xiang2()"/></div>
+							</li>
+							<li>
+								<span>土豆臭么？</span>
+								<div><input type="button" value="很臭" onclick="chou3()"/> <input type="button" value="很香" onclick="xiang3()"/></div>
+							</li>
+						</ul>
+					</div>
+				</li>
+				
+				<li id="contact"><span class="header">喜欢土豆吗</span>
+					<div class="inner">
+						<h2>喜欢土豆吗</h2>
+						<p><em>理由：这里省去10000000000000000000000000000000000000000000000000000万字......</em></p>
+						<h4>现在请大声的告诉我，土豆香吗</h4>
+						<div>
+						<ul>
+							<div style="margin-bottom: 10px;"><input type="button" value="我就是实话说了，很香，很喜欢" onclick="shuo()"/></div>
+							<div style="margin-bottom: 10px;"><input type="button" value="我不说" onclick="noshuo()"/></div>
+						</ul>
+						</div>
+						<h2>要留言么</h2>
+						<div style="margin-bottom: 10px;"><input id="gword" type="text" /> <input type="button" value="我要留言" onclick="addword()"/></div>
+						<div class="liuyan">
+							<ul id="show"></ul>
+						</div>
+					</div>
+				</li>
+			
+			</ul>
+			
+		</div> <!-- END of content -->
+	</div> <!-- END of templatemo_main -->
+    <div><input /></div>
+</div> <!-- END of templatemo_wrapper -->
+
+</body>
+</html>

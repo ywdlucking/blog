@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/index.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/xcConfirm.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/search-form.css">
 <script src="${pageContext.request.contextPath}/static/bootstrap3/js/jquery-1.11.2.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/bootstrap3/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/html5.js"></script> 

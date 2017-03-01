@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ywd.blog.dao.LotteryListDao">
+
+	<resultMap type="LotteryList" id="LotteryListResult">
+		<result property="id" column="id"/>
+		<result property="rank" column="lottery_list_rank"/>
+		<result property="userNo" column="lottery_user_name"/>
+		<result property="userName" column="lottery_user_no"/>
+		<result property="cdate" column="cdate"/>
+	</resultMap>
+	
+	<insert id="add" parameterType="LotteryList">
+		insert into t_lottery_list values(null,#{rank},#{userNo},#{userName},#{cdate})
+	</insert>
+	
+	<delete id="deleteById" parameterType="Integer">
+		delete from t_lottery_list where id=#{id}
+	</delete>
+	
+	<delete id="deleteAll" parameterType="Integer">
+		delete from t_lottery_list where 1=1
+	</delete>
+	
+	<select id="findByRank" parameterType="Integer" resultMap="LotteryListResult">
+		select * from t_lottery_list where lottery_list_rank=#{rank}
+	</select>
+</mapper> 
